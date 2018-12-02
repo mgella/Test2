@@ -36,8 +36,8 @@ $(document).ready(function () {
                   datasets: [
                              {
                              fill: false,
-                             label: 'SPO2',
-                             yAxisID: 'SPO2',
+                             label: 'Smoke',
+                             yAxisID: 'Smoke',
                              borderColor: "rgba(255, 204, 0, 1)",
                              pointBoarderColor: "rgba(255, 204, 0, 1)",
                              backgroundColor: "rgba(255, 204, 0, 0.4)",
