@@ -1,102 +1,196 @@
 $(document).ready(function () {
-  var timeData = [],
-    temperatureData = [],
-    humidityData = [];
-  var data = {
-    labels: timeData,
-    datasets: [
-      {
-        fill: false,
-        label: 'Temperature',
-        yAxisID: 'Temperature',
-        borderColor: "rgba(255, 204, 0, 1)",
-        pointBoarderColor: "rgba(255, 204, 0, 1)",
-        backgroundColor: "rgba(255, 204, 0, 0.4)",
-        pointHoverBackgroundColor: "rgba(255, 204, 0, 1)",
-        pointHoverBorderColor: "rgba(255, 204, 0, 1)",
-        data: temperatureData
-      },
-      {
-        fill: false,
-        label: 'Humidity',
-        yAxisID: 'Humidity',
-        borderColor: "rgba(24, 120, 240, 1)",
-        pointBoarderColor: "rgba(24, 120, 240, 1)",
-        backgroundColor: "rgba(24, 120, 240, 0.4)",
-        pointHoverBackgroundColor: "rgba(24, 120, 240, 1)",
-        pointHoverBorderColor: "rgba(24, 120, 240, 1)",
-        data: humidityData
-      }
-    ]
-  }
+                  var timeData = [],
+                  heartRateData = [],
+                  threshold = 0,
+                  defaultThreshold = 250,
+                  initialValues = [],
+                  tempData = [],
+                  repCount = 0,
+                  spo2Data = [],
+                  maxHeartRate = -100000,
+                  minHeartRate = 100000,
+                  maxTemp = -100000,
+                  minTemp = 100000,
+                  maxSPO2 = -100000,
+                  minSPO2 = 100000;
 
-  var basicOption = {
-    title: {
-      display: true,
-      text: 'Temperature & Humidity Real-time Data',
-      fontSize: 36
-    },
-    scales: {
-      yAxes: [{
-        id: 'Temperature',
-        type: 'linear',
-        scaleLabel: {
-          labelString: 'Temperature(C)',
-          display: true
-        },
-        position: 'left',
-      }, {
-          id: 'Humidity',
-          type: 'linear',
-          scaleLabel: {
-            labelString: 'Humidity(%)',
-            display: true
-          },
-          position: 'right'
-        }]
-    }
-  }
+                  var data = {
+                  labels: timeData,
+                  datasets: [
+                             {
+                             fill: false,
+                             label: 'Heart Rate',
+                             yAxisID: 'Peaks',
+                             borderColor: "rgba(255, 204, 0, 1)",
+                             pointBoarderColor: "rgba(255, 204, 0, 1)",
+                             backgroundColor: "rgba(255, 204, 0, 0.4)",
+                             pointHoverBackgroundColor: "rgba(255, 204, 0, 1)",
+                             pointHoverBorderColor: "rgba(255, 204, 0, 1)",
+                             data: heartRateData
+                             }
+                             ]
+                  }
+                  
+                  
+                  
+                  var data3 = {
+                  labels: timeData,
+                  datasets: [
+                             {
+                             fill: false,
+                             label: 'Temperature',
+                             yAxisID: 'Temperature',
+                             borderColor: "rgba(255, 204, 0, 1)",
+                             pointBoarderColor: "rgba(255, 204, 0, 1)",
+                             backgroundColor: "rgba(255, 204, 0, 0.4)",
+                             pointHoverBackgroundColor: "rgba(255, 204, 0, 1)",
+                             pointHoverBorderColor: "rgba(255, 204, 0, 1)",
+                             data: tempData
+                             }
+                             ]
+                  }
+                  
+                  var basicOption3 = {
+                  title: {
+                  display: true,
+                  text: 'Temperature Real-time Data',
+                  fontSize: 36
+                  },
+                  scales: {
+                  yAxes: [{
+                          id: 'Temperature',
+                          type: 'linear',
+                          scaleLabel: {
+                          labelString: 'Temperature',
+                          display: true
+                          },
+                          position: 'left',
+                          }]
+                  }
+                  }
+                  
+                  
+                  
+                  var basicOption = {
+                  title: {
+                  display: true,
+                  text: 'Heart Rate Real-time Data',
+                  fontSize: 36
+                  },
+                  scales: {
+                  yAxes: [{
+                          id: 'Peaks',
+                          type: 'linear',
+                          scaleLabel: {
+                          labelString: 'Heart Rate',
+                          display: true
+                          },
+                          position: 'left',
+                          }]
+                  }
+                  }
+                  
+                  //Get the context of the canvas element we want to select
+                  var ctx = document.getElementById("myChart").getContext("2d");
+                  
+                  var ctx3 = document.getElementById("myChart3").getContext("2d");
+                  var optionsNoAnimation = { animation: false }
+                  var myLineChart = new Chart(ctx, {
+                                              type: 'line',
+                                              data: data,
+                                              options: basicOption
+                                              });
+                  
+                 
+                  
+                  var myLineChart3 = new Chart(ctx3, {
+                                               type: 'line',
+                                               data: data3,
+                                               options: basicOption3
+                                               });
+                  
+                  var ws = new WebSocket('wss://' + location.host);
 
-  //Get the context of the canvas element we want to select
-  var ctx = document.getElementById("myChart").getContext("2d");
-  var optionsNoAnimation = { animation: false }
-  var myLineChart = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: basicOption
-  });
+                  ws.onopen = function () {
+                    console.log('Successfully connect WebSocket');
+                  }
 
-  var ws = new WebSocket('wss://' + location.host);
-  ws.onopen = function () {
-    console.log('Successfully connect WebSocket');
-  }
-  ws.onmessage = function (message) {
-    console.log('receive message' + message.data);
-    try {
-      var obj = JSON.parse(message.data);
-      if(!obj.time || !obj.temperature) {
-        return;
-      }
-      timeData.push(obj.time);
-      temperatureData.push(obj.temperature);
-      // only keep no more than 50 points in the line chart
-      const maxLen = 50;
-      var len = timeData.length;
-      if (len > maxLen) {
-        timeData.shift();
-        temperatureData.shift();
-      }
+                  ws.onmessage = function (message) {
+                    console.log('receive message' + message.data);
+                    try {
+                        var obj = JSON.parse(message.data);
+                        /*var step = 0;
+                        
+                        if(obj.voltage>450){
+                            step = 1;
+                        }
+                        
+                        var flexCount = 0;
+                        for(var i=0;i<spo2Data.length;i++){
+                            if(spo2Data[i]==1){
+                                flexCount++;
+                            }
+                        }
+                        var avgSetsDone = flexCount/12;*/
+                        
+                        timeData.push(obj.time);
 
-      if (obj.humidity) {
-        humidityData.push(obj.humidity);
-      }
-      if (humidityData.length > maxLen) {
-        humidityData.shift();
-      }
+                        heartRateData.push(obj.red);
+                        /*if(obj.voltage>450){
+                            intensityData.push(obj.voltage);
+                        }else{
+                            intensityData.push(450);
+                        }*/
+                        
+                       
+                        tempData.push(obj.green);
+                        // only keep no more than 50 points in the line chart
+                        const maxLen = 50;
+                        var len = timeData.length;
+                        if (len > maxLen) {
+                            timeData.shift();
+                            heartRateData.shift();
+                            spo2Data.shift();
+                            tempData.shift();
+                        }
+                        
+                        myLineChart.update();
+                        
+                        myLineChart3.update();
 
-      myLineChart.update();
-    } catch (err) {
-      console.error(err);
-    }
-  }
+                        if (maxHeartRate<obj.red){
+                            maxHeartRate = obj.red
+                        }
+                        if (minHeartRate>obj.red){
+                            minHeartRate = obj.red
+                        }
+
+                        
+
+                        if (maxTemp<obj.green){
+                            maxTemp = obj.green
+                        }
+                        if (minTemp>obj.green){
+                            minTemp = obj.green
+                        }
+
+                        $("#label1").html(maxHeartRate);
+                $("#label2").html(minHeartRate);
+                       
+                $("#label5").html(maxTemp);
+                        $("#label6").html(minTemp);
+
+                        var x = document.getElementById("label1");
+                        if (maxHeartRate>100){
+                            x.style.backgroundColor = "red";
+                        }
+                        else{
+                            x.style.backgroundColor = "white";
+                        }
+                         
+                
+                    } catch (err) {
+                        console.error(err);
+                    }
+                  }
 });
