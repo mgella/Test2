@@ -93,7 +93,7 @@ $(document).ready(function () {
       if (humidityData.length > maxLen) {
         humidityData.shift();
       }
-      alert('hi');
+
       myLineChart.update();
     } catch (err) {
       console.error(err);
