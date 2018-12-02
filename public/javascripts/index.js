@@ -31,7 +31,22 @@ $(document).ready(function () {
                              ]
                   }
                   
-                  
+                  var data2 = {
+                  labels: timeData,
+                  datasets: [
+                             {
+                             fill: false,
+                             label: 'Smoke Detection',
+                             yAxisID: 'Smoke Detection',
+                             borderColor: "rgba(255, 204, 0, 1)",
+                             pointBoarderColor: "rgba(255, 204, 0, 1)",
+                             backgroundColor: "rgba(255, 204, 0, 0.4)",
+                             pointHoverBackgroundColor: "rgba(255, 204, 0, 1)",
+                             pointHoverBorderColor: "rgba(255, 204, 0, 1)",
+                             data: spo2Data
+                             }
+                             ]
+                  }
                   
                   var data3 = {
                   labels: timeData,
@@ -69,7 +84,24 @@ $(document).ready(function () {
                   }
                   }
                   
-                  
+                  var basicOption2 = {
+                  title: {
+                  display: true,
+                  text: 'SPO2 Real-time Data',
+                  fontSize: 36
+                  },
+                  scales: {
+                  yAxes: [{
+                          id: 'SPO2',
+                          type: 'linear',
+                          scaleLabel: {
+                          labelString: 'SPO2',
+                          display: true
+                          },
+                          position: 'left',
+                          }]
+                  }
+                  }
                   
                   var basicOption = {
                   title: {
@@ -92,7 +124,7 @@ $(document).ready(function () {
                   
                   //Get the context of the canvas element we want to select
                   var ctx = document.getElementById("myChart").getContext("2d");
-                 
+                  var ctx2 = document.getElementById("myChart2").getContext("2d");
                   var ctx3 = document.getElementById("myChart3").getContext("2d");
                   var optionsNoAnimation = { animation: false }
                   var myLineChart = new Chart(ctx, {
@@ -101,7 +133,11 @@ $(document).ready(function () {
                                               options: basicOption
                                               });
                   
-                
+                  var myLineChart2 = new Chart(ctx2, {
+                                              type: 'line',
+                                              data: data2,
+                                              options: basicOption2
+                                              });
                   
                   var myLineChart3 = new Chart(ctx3, {
                                                type: 'line',
@@ -142,7 +178,7 @@ $(document).ready(function () {
                             intensityData.push(450);
                         }*/
                         
-                        
+                        spo2Data.push(obj.IR);
                         tempData.push(obj.green);
                         // only keep no more than 50 points in the line chart
                         const maxLen = 50;
@@ -150,12 +186,12 @@ $(document).ready(function () {
                         if (len > maxLen) {
                             timeData.shift();
                             heartRateData.shift();
-                            
+                            spo2Data.shift();
                             tempData.shift();
                         }
                         
                         myLineChart.update();
-                        
+                        myLineChart2.update();
                         myLineChart3.update();
 
                         if (maxHeartRate<obj.red){
@@ -165,7 +201,12 @@ $(document).ready(function () {
                             minHeartRate = obj.red
                         }
 
-                        
+                        if (maxSPO2<obj.IR){
+                            maxSPO2 = obj.IR
+                        }
+                        if (minSPO2>obj.IR){
+                            minSPO2 = obj.IR
+                        }
 
                         if (maxTemp<obj.green){
                             maxTemp = obj.green
@@ -195,3 +236,4 @@ $(document).ready(function () {
                     }
                   }
 });
+
