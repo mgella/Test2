@@ -1,19 +1,36 @@
 <html>
 
 <head>
-    <title>Temperature &amp; Humidity live data</title>
+    <title>Health Monitor</title>
     <script src="javascripts/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="javascripts/Chart.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="javascripts/index.js" type="text/javascript" charset="utf-8"></script>
     <link href="stylesheets/style.css" rel="stylesheet" />
-    <title>Heart Rate</title>
-    
 </head>
-<p>This is a paragraph.</p>
+
 <body>
     <canvas id="myChart" width="400" height="150"></canvas>
     <canvas id="myChart2" width="400" height="150"></canvas>
-     <canvas id="myChart3" width="400" height="150"></canvas>
+    <canvas id="myChart3" width="400" height="150"></canvas>
+
+    <div id="table1" style="display:flex">
+        <table id="labels" style="width:100%; height:225">
+            <tr>
+                <td bgcolor="#fff"><p id="label1"></p><p class="labels">Max Heart Rate</p></td>
+                <td bgcolor="#fff"><p id="label2"></p><p class="labels">Resting Heart Rate</p></td>
+            </tr>
+            <tr>
+                <td bgcolor="#fff"><p id="label3"></p><p class="labels">Max SPO2</p></td>
+                <td bgcolor="#fff"><p id="label4"></p><p class="labels">Min SPO2</p></td>
+            </tr>
+            <tr>
+                <td bgcolor="#fff"><p id="label5"></p><p class="labels">Max Temperature</p></td>
+                <td bgcolor="#fff"><p id="label6"></p><p class="labels">Min Temperature</p></td>
+            </tr>
+            </table>
+    </div>
+    
+
 </body>
 
 </html>
