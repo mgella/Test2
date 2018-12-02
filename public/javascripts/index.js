@@ -92,7 +92,7 @@ $(document).ready(function () {
                   
                   //Get the context of the canvas element we want to select
                   var ctx = document.getElementById("myChart").getContext("2d");
-                  
+                 
                   var ctx3 = document.getElementById("myChart3").getContext("2d");
                   var optionsNoAnimation = { animation: false }
                   var myLineChart = new Chart(ctx, {
@@ -101,7 +101,7 @@ $(document).ready(function () {
                                               options: basicOption
                                               });
                   
-                 
+                
                   
                   var myLineChart3 = new Chart(ctx3, {
                                                type: 'line',
@@ -142,7 +142,7 @@ $(document).ready(function () {
                             intensityData.push(450);
                         }*/
                         
-                       
+                        
                         tempData.push(obj.green);
                         // only keep no more than 50 points in the line chart
                         const maxLen = 50;
@@ -150,7 +150,7 @@ $(document).ready(function () {
                         if (len > maxLen) {
                             timeData.shift();
                             heartRateData.shift();
-                            spo2Data.shift();
+                            
                             tempData.shift();
                         }
                         
@@ -176,7 +176,8 @@ $(document).ready(function () {
 
                         $("#label1").html(maxHeartRate);
                 $("#label2").html(minHeartRate);
-                       
+                        $("#label3").html(maxSPO2);
+                        $("#label4").html(minSPO2);
                 $("#label5").html(maxTemp);
                         $("#label6").html(minTemp);
 
