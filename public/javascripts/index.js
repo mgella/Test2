@@ -92,10 +92,10 @@ $(document).ready(function () {
                   },
                   scales: {
                   yAxes: [{
-                          id: 'SPO2',
+                          id: 'smoke',
                           type: 'linear',
                           scaleLabel: {
-                          labelString: 'SPO2',
+                          labelString: 'smoke',
                           display: true
                           },
                           position: 'left',
