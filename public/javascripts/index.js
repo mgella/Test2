@@ -1,6 +1,7 @@
 $(document).ready(function () {
                   var timeData = [],
                   heartRateData = [],
+                   humidityData = [],
                   threshold = 0,
                   defaultThreshold = 250,
                   initialValues = [],
@@ -61,14 +62,25 @@ $(document).ready(function () {
                              pointHoverBackgroundColor: "rgba(255, 204, 0, 1)",
                              pointHoverBorderColor: "rgba(255, 204, 0, 1)",
                              data: tempData
-                             }
+                             },
+                             {
+        fill: false,
+        label: 'Humidity',
+        yAxisID: 'Humidity',
+        borderColor: "rgba(24, 120, 240, 1)",
+        pointBoarderColor: "rgba(24, 120, 240, 1)",
+        backgroundColor: "rgba(24, 120, 240, 0.4)",
+        pointHoverBackgroundColor: "rgba(24, 120, 240, 1)",
+        pointHoverBorderColor: "rgba(24, 120, 240, 1)",
+        data: humidityData
+      }
                              ]
                   }
                   
                   var basicOption3 = {
                   title: {
                   display: true,
-                  text: 'Temperature Real-time Data',
+                  text: 'Temperature and Humidity Real-time Data',
                   fontSize: 36
                   },
                   scales: {
@@ -80,7 +92,15 @@ $(document).ready(function () {
                           display: true
                           },
                           position: 'left',
-                          }]
+                          }, {
+          id: 'Humidity',
+          type: 'linear',
+          scaleLabel: {
+            labelString: 'Humidity(%)',
+            display: true
+          },
+          position: 'right'
+        }]
                   }
                   }
                   
@@ -189,7 +209,13 @@ $(document).ready(function () {
                             spo2Data.shift();
                             tempData.shift();
                         }
-                        
+                         if (obj.humidity) {
+        humidityData.push(obj.humidity);
+      }
+      if (humidityData.length > maxLen) {
+        humidityData.shift();
+      }
+
                         myLineChart.update();
                         myLineChart2.update();
                         myLineChart3.update();
