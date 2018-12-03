@@ -199,7 +199,7 @@ $(document).ready(function () {
                             intensityData.push(450);
                         }*/
                         
-                        smokeData.push(obj.IR);
+                        smokeData.push(obj.SmokeRate);
                         tempData.push(obj.temperature);
                         // only keep no more than 50 points in the line chart
                         const maxLen = 50;
