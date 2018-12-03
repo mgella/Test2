@@ -7,7 +7,7 @@ $(document).ready(function () {
                   initialValues = [],
                   tempData = [],
                   repCount = 0,
-                  spo2Data = [],
+                  smokeData = [],
                   maxHeartRate = -100000,
                   minHeartRate = 100000,
                   maxTemp = -100000,
@@ -44,7 +44,7 @@ $(document).ready(function () {
                              backgroundColor: "rgba(255, 204, 0, 0.4)",
                              pointHoverBackgroundColor: "rgba(255, 204, 0, 1)",
                              pointHoverBorderColor: "rgba(255, 204, 0, 1)",
-                             data: spo2Data
+                             data: smokeData
                              }
                              ]
                   }
@@ -198,7 +198,7 @@ $(document).ready(function () {
                             intensityData.push(450);
                         }*/
                         
-                        spo2Data.push(obj.IR);
+                        smokeData.push(obj.IR);
                         tempData.push(obj.green);
                         // only keep no more than 50 points in the line chart
                         const maxLen = 50;
@@ -206,7 +206,7 @@ $(document).ready(function () {
                         if (len > maxLen) {
                             timeData.shift();
                             heartRateData.shift();
-                            spo2Data.shift();
+                            smokeData.shift();
                             tempData.shift();
                         }
                          if (obj.humidity) {
