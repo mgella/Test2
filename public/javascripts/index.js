@@ -240,7 +240,7 @@ $(document).ready(function () {
                         if (minTemp>obj.green){
                             minTemp = obj.green
                         }
-
+                        alert('hi');
                         $("#label1").html(maxHeartRate);
                 $("#label2").html(minHeartRate);
                         $("#label3").html(maxSPO2);
