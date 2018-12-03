@@ -65,8 +65,8 @@ $(document).ready(function () {
                              },
                              {
         fill: false,
-        label: 'Humidity',
-        yAxisID: 'Humidity',
+        label: 'humidity',
+        yAxisID: 'humidity',
         borderColor: "rgba(24, 120, 240, 1)",
         pointBoarderColor: "rgba(24, 120, 240, 1)",
         backgroundColor: "rgba(24, 120, 240, 0.4)",
@@ -93,7 +93,7 @@ $(document).ready(function () {
                           },
                           position: 'left',
                           }, {
-          id: 'Humidity',
+          id: 'humidity',
           type: 'linear',
           scaleLabel: {
             labelString: 'Humidity(%)',
@@ -212,12 +212,7 @@ $(document).ready(function () {
                             minHeartRate = obj.HeartRate
                         }
 
-                        if (maxSPO2<obj.IR){
-                            maxSPO2 = obj.IR
-                        }
-                        if (minSPO2>obj.IR){
-                            minSPO2 = obj.IR
-                        }
+                       
 
                        
                         var message = "Stop Smoking for today";
