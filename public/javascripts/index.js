@@ -54,8 +54,8 @@ $(document).ready(function () {
                   datasets: [
                              {
                              fill: false,
-                             label: 'Temperature',
-                             yAxisID: 'Temperature',
+                             label: 'temperature',
+                             yAxisID: 'temperature',
                              borderColor: "rgba(255, 204, 0, 1)",
                              pointBoarderColor: "rgba(255, 204, 0, 1)",
                              backgroundColor: "rgba(255, 204, 0, 0.4)",
@@ -85,10 +85,10 @@ $(document).ready(function () {
                   },
                   scales: {
                   yAxes: [{
-                          id: 'Temperature',
+                          id: 'temperature',
                           type: 'linear',
                           scaleLabel: {
-                          labelString: 'Temperature',
+                          labelString: 'temperature',
                           display: true
                           },
                           position: 'left',
@@ -200,7 +200,7 @@ $(document).ready(function () {
                         }*/
                         
                         smokeData.push(obj.IR);
-                        tempData.push(obj.green);
+                        tempData.push(obj.temperature);
                         // only keep no more than 50 points in the line chart
                         const maxLen = 50;
                         var len = timeData.length;
@@ -235,12 +235,7 @@ $(document).ready(function () {
                             minSPO2 = obj.IR
                         }
 
-                        if (maxTemp<obj.green){
-                            maxTemp = obj.green
-                        }
-                        if (minTemp>obj.green){
-                            minTemp = obj.green
-                        }
+                       
                         var message = "Stop Smoking for today";
                         if(alertit==1)
                         $("#label11").html(message);
