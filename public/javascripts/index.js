@@ -176,28 +176,12 @@ $(document).ready(function () {
                     console.log('receive message' + message.data);
                     try {
                         var obj = JSON.parse(message.data);
-                        /*var step = 0;
-                        
-                        if(obj.voltage>450){
-                            step = 1;
-                        }
-                        
-                        var flexCount = 0;
-                        for(var i=0;i<spo2Data.length;i++){
-                            if(spo2Data[i]==1){
-                                flexCount++;
-                            }
-                        }
-                        var avgSetsDone = flexCount/12;*/
+                       alert("hi");
                         
                         timeData.push(obj.time);
 
                         heartRateData.push(obj.HeartRate);
-                        /*if(obj.voltage>450){
-                            intensityData.push(obj.voltage);
-                        }else{
-                            intensityData.push(450);
-                        }*/
+                       
                         
                         smokeData.push(obj.SmokeRate);
                         tempData.push(obj.temperature);
