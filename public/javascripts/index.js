@@ -146,6 +146,7 @@ $(document).ready(function () {
                   var ctx = document.getElementById("myChart").getContext("2d");
                   var ctx2 = document.getElementById("myChart2").getContext("2d");
                   var ctx3 = document.getElementById("myChart3").getContext("2d");
+                  var alertit = 1;
                   var optionsNoAnimation = { animation: false }
                   var myLineChart = new Chart(ctx, {
                                               type: 'line',
@@ -240,14 +241,16 @@ $(document).ready(function () {
                         if (minTemp>obj.green){
                             minTemp = obj.green
                         }
-                        alert('hi');
+                        var message = "Stop Smoking for today";
+                        if(alertit==1)
+                        $("#label11").html(message);
                         $("#label1").html(maxHeartRate);
                 $("#label2").html(minHeartRate);
                         $("#label3").html(maxSPO2);
                         $("#label4").html(minSPO2);
                 $("#label5").html(maxTemp);
                         $("#label6").html(minTemp);
-
+                        
                         var x = document.getElementById("label1");
                         if (maxHeartRate>100){
                             x.style.backgroundColor = "red";
