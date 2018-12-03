@@ -20,7 +20,7 @@ $(document).ready(function () {
                   datasets: [
                              {
                              fill: false,
-                             label: 'Heart Rate',
+                             label: 'HeartRate',
                              yAxisID: 'Peaks',
                              borderColor: "rgba(255, 204, 0, 1)",
                              pointBoarderColor: "rgba(255, 204, 0, 1)",
@@ -37,7 +37,7 @@ $(document).ready(function () {
                   datasets: [
                              {
                              fill: false,
-                             label: 'smoke',
+                             label: 'SmokeRate',
                              yAxisID: 'smoke',
                              borderColor: "rgba(255, 204, 0, 1)",
                              pointBoarderColor: "rgba(255, 204, 0, 1)",
