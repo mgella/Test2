@@ -192,7 +192,7 @@ $(document).ready(function () {
                         
                         timeData.push(obj.time);
 
-                        heartRateData.push(obj.red);
+                        heartRateData.push(obj.HeartRate);
                         /*if(obj.voltage>450){
                             intensityData.push(obj.voltage);
                         }else{
@@ -221,11 +221,11 @@ $(document).ready(function () {
                         myLineChart2.update();
                         myLineChart3.update();
 
-                        if (maxHeartRate<obj.red){
-                            maxHeartRate = obj.red
+                        if (maxHeartRate<obj.HeartRate){
+                            maxHeartRate = obj.HeartRate
                         }
-                        if (minHeartRate>obj.red){
-                            minHeartRate = obj.red
+                        if (minHeartRate>obj.HeartRate){
+                            minHeartRate = obj.HeartRate
                         }
 
                         if (maxSPO2<obj.IR){
