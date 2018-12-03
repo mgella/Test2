@@ -216,8 +216,7 @@ $(document).ready(function () {
 
                        
                         var message = "Stop Smoking for today";
-                        if(alertit==1)
-                        $("#label11").html(message);
+                       
                         $("#label1").html(maxHeartRate);
                 $("#label2").html(minHeartRate);
                         $("#label3").html(maxSPO2);
